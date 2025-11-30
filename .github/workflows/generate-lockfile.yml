@@ -3,6 +3,9 @@ name: Generate package-lock
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -13,11 +16,25 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Debug - list root files
+        run: |
+          pwd
+          ls -la
+          test -f package.json || (echo "ERROR: package.json not found in repo root" && exit 1)
+          node -v
+          npm -v
+
       - name: Generate package-lock.json
         run: |
           npm install --package-lock-only --ignore-scripts
 
-      - name: Commit lockfile
+      - name: Upload lockfile artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-lock
+          path: package-lock.json
+
+      - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
