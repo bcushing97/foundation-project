@@ -4,11 +4,15 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/travel-app/',
+  base: "/travel-app/",
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
+    alias: [
+      // "@/..." -> "<root>/src/..."
+      { find: /^@\//, replacement: path.resolve(__dirname, "./src") + "/" },
+
+      // "pkg@1.2.3" or "@scope/pkg@1.2.3" -> "pkg" or "@scope/pkg"
+      { find: /^((?:@[^/]+\/)?[^@/]+)@\d+\.\d+\.\d+(\/.*)?$/, replacement: "$1$2" },
+    ],
   },
   build: {
     target: "esnext",
