@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "allowJs": false,
 
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
