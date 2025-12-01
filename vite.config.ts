@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/travel-app/",
+  base: "/foundation-project/",
   resolve: {
     alias: [
       // "@/..." -> "<root>/src/..."
