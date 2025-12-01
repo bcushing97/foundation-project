@@ -9,6 +9,7 @@ export interface TripAccommodation {
 }
 
 export interface TripDestination {
+  id?: string; // Unique identifier for this destination in the trip
   destinationId?: string; // Optional reference to destination in destinations database (e.g., 'dest-santorini')
   name: string; // Destination name for display (required even if destinationId is provided)
   days: number; // Number of days spent at this destination during the trip

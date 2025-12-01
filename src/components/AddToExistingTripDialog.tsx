@@ -14,6 +14,8 @@ import { ScrollArea } from './ui/scroll-area';
 export interface DraftTrip {
   id: string;
   name: string;
+  startDate?: Date;
+  endDate?: Date;
   destinations: Array<{
     id: string;
     name: string;
