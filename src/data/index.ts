@@ -27,7 +27,6 @@ export {
   getActivityById,
   getActivitiesByIds,
   getActivitiesByCategory,
-  getActivitiesByLocation,
   type Activity
 } from './activities';
 

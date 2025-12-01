@@ -69,7 +69,7 @@ export function validateData(): ValidationResult {
   savedTrips.forEach(trip => {
     if (!trip.id) errors.push(`Trip missing 'id' field`);
     if (!trip.title) errors.push(`Trip ${trip.id} missing 'title' field`);
-    if (!trip.creator) errors.push(`Trip ${trip.id} missing 'creator' field`);
+    if (!trip.creatorId) errors.push(`Trip ${trip.id} missing 'creatorId' field`);
     if (!trip.destinations || trip.destinations.length === 0) {
       errors.push(`Trip ${trip.id} has no destinations`);
     }

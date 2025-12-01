@@ -408,6 +408,7 @@ interface UserActivity {
   description: string;
   image: string;
   pricePerPerson: string; // e.g., "$25 pp" or "$50-75 pp"
+  estimatedCost?: number;
 }
 
 // User-recommended accommodations
