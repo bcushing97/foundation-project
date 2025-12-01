@@ -206,6 +206,7 @@ export function TripEditorPage({ trip, onBack, onUpdateTrip, onAddDestination }:
     const newDestination = {
       id: Date.now().toString(),
       name: destination,
+      country: destination.split(',')[1]?.trim() || 'Unknown',
       searchResults: [],
       savedActivities: [],
       savedRestaurants: [],

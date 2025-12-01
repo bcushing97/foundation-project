@@ -263,7 +263,7 @@ export function DiscoverPage({ onViewLocation, onViewExperience, onViewTrip, use
         </div>
 
         {/* Tabs */}
-        <Tabs value={selectedTab} onValueChange={(v) => setSelectedTab(v as 'locations' | 'experiences' | 'trips')}>
+        <Tabs value={selectedTab} onValueChange={(v: string) => setSelectedTab(v as 'locations' | 'experiences' | 'trips')}>
           <TabsList className="grid w-full grid-cols-3 mb-6">
             <TabsTrigger value="locations" className="gap-2">
               <MapPin className="w-4 h-4" />

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, MapPin, Sparkles, Calendar, Users, DollarSign, User as UserIcon, Users as UsersIcon, Flag, X } from 'lucide-react';
+import { Search, MapPin, Sparkles, Calendar, Users, DollarSign, Users as UsersIcon, Flag, X, User as UserIcon } from 'lucide-react';
 import { BackgroundSlideshow } from './components/BackgroundSlideshow';
 import { SearchResults } from './components/SearchResults';
 import { AppHeader } from './components/AppHeader';
@@ -33,7 +33,7 @@ import { Badge } from './components/ui/badge';
 import { Separator } from './components/ui/separator';
 import { worldDestinations } from './data/destinations';
 import { savedTrips, type SavedTrip } from './data/savedTrips';
-import type { User } from './data/users';
+import { type User, usersDatabase } from './data/users';
 
 function PlaceSettingIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -71,16 +71,6 @@ interface TripInvitation {
 
 type SearchMode = 'location' | 'experience' | 'trip' | null;
 type PageView = 'home' | 'search' | 'profile' | 'settings' | 'help' | 'trips' | 'notifications' | 'tripDetails' | 'tripEditor' | 'tripBuilder';
-
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  profilePicture?: string;
-  savedDestinationIds?: string[];
-  savedActivityIds?: string[];
-}
 
 const experienceFilters = [
   'Beach & Coast',
@@ -139,13 +129,8 @@ export default function App() {
 
   // Mock user for testing - in real app this would come from login
   const mockLogin = () => {
-    setUser({
-      id: 'user-john-doe',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      // profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop' // Uncomment to test with profile picture
-    });
+    const mockUser = usersDatabase['user-john-doe'];
+    setUser(mockUser);
     setIsLoggedIn(true);
     setLoginOpen(false);
   };
@@ -996,7 +981,7 @@ export default function App() {
             setLocationSearch(location);
           }}
           user={user || undefined}
-          following={user ? ['Bryce', 'Cayman', 'Sarah', 'Michael', 'Emma', 'James', 'Olivia'] : undefined}
+          following={user?.following}
           onLogout={handleSignOut}
           onViewProfile={handleViewProfile}
           onMockLogin={mockLogin}
@@ -1887,7 +1872,7 @@ export default function App() {
         {!mobileAuthView && mobileTab === 'profile' && !user && (
           <div className="min-h-screen bg-gray-50 pb-20 flex items-center justify-center px-4">
             <div className="text-center max-w-sm">
-              <User className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+              <UserIcon className="w-16 h-16 mx-auto mb-4 text-gray-300" />
               <h2 className="text-2xl mb-3">Log in to view your profile</h2>
               <p className="text-gray-600 mb-6">Create an account or log in to access your trips, saved places, and more</p>
               <div className="space-y-3">

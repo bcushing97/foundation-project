@@ -413,7 +413,7 @@ function FriendsSection({ onViewFriendProfile }: { onViewFriendProfile?: (friend
               {person.unfollowed ? (
                 <Button
                   size="sm"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     handleRefollow(person.name);
                   }}
@@ -425,7 +425,7 @@ function FriendsSection({ onViewFriendProfile }: { onViewFriendProfile?: (friend
                 <Button
                   size="sm"
                   variant="secondary"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     handleUnfollowClick(person);
                   }}
@@ -475,7 +475,7 @@ function FriendsSection({ onViewFriendProfile }: { onViewFriendProfile?: (friend
                 <Button
                   size="sm"
                   variant="secondary"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     handleUnfollowClick({ name: follower.name, email: follower.email });
                   }}

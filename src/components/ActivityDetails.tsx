@@ -68,7 +68,7 @@ export function ActivityDetails({
             {activity.estimatedCost && (
               <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
                 <p className="text-2xl font-semibold text-slate-900">${activity.estimatedCost}</p>
-                <p className="text-xs text-gray-600">{renderPriceLevel(activity.priceLevel)} per person</p>
+                <p className="text-xs text-gray-600">{renderPriceLevel(activity.priceLevel || 1)} per person</p>
               </div>
             )}
           </div>
@@ -103,22 +103,10 @@ export function ActivityDetails({
               <Badge variant="outline" className="px-3 py-1.5">
                 {activity.category}
               </Badge>
-              {activity.difficultyLevel && (
+              {activity.difficulty && (
                 <Badge variant="outline" className="gap-1.5 px-3 py-1.5">
                   <TrendingUp className="w-4 h-4" />
-                  {activity.difficultyLevel}
-                </Badge>
-              )}
-              {activity.groupSize && (
-                <Badge variant="outline" className="gap-1.5 px-3 py-1.5">
-                  <Users className="w-4 h-4" />
-                  {activity.groupSize}
-                </Badge>
-              )}
-              {activity.bookingRequired && (
-                <Badge variant="secondary" className="gap-1.5 px-3 py-1.5">
-                  <Calendar className="w-4 h-4" />
-                  Booking Required
+                  {activity.difficulty}
                 </Badge>
               )}
             </div>
@@ -131,37 +119,16 @@ export function ActivityDetails({
               <p className="text-gray-700 leading-relaxed">{activity.description}</p>
             </div>
 
-            {/* What's Included */}
-            {activity.included && activity.included.length > 0 && (
+            {/* Tags */}
+            {activity.tags && activity.tags.length > 0 && (
               <>
                 <Separator />
                 <div>
-                  <h2 className="text-xl mb-3 flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-emerald-600" />
-                    What's Included
-                  </h2>
-                  <ul className="space-y-2">
-                    {activity.included.map((item, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
-            {/* Best For */}
-            {activity.bestFor && activity.bestFor.length > 0 && (
-              <>
-                <Separator />
-                <div>
-                  <h2 className="text-xl mb-3">Best For</h2>
+                  <h2 className="text-xl mb-3">Tags</h2>
                   <div className="flex flex-wrap gap-2">
-                    {activity.bestFor.map((audience, index) => (
+                    {activity.tags.map((tag: string, index: number) => (
                       <Badge key={index} variant="secondary" className="px-3 py-1.5">
-                        {audience}
+                        {tag}
                       </Badge>
                     ))}
                   </div>
@@ -177,7 +144,7 @@ export function ActivityDetails({
                   <DollarSign className="w-5 h-5 text-slate-900" />
                   <h3 className="font-semibold">Price Level</h3>
                 </div>
-                <p className="text-gray-700">{renderPriceLevel(activity.priceLevel)}</p>
+                <p className="text-gray-700">{renderPriceLevel(activity.priceLevel || 1)}</p>
                 <p className="text-sm text-gray-600 mt-1">
                   {activity.priceLevel === 1 && 'Budget-friendly option'}
                   {activity.priceLevel === 2 && 'Moderately priced'}
@@ -186,31 +153,17 @@ export function ActivityDetails({
                 </p>
               </Card>
 
-              {activity.region && (
+              {activity.bestTimeOfDay && (
                 <Card className="p-4 bg-gray-50">
                   <div className="flex items-center gap-3 mb-2">
-                    <MapPin className="w-5 h-5 text-slate-900" />
-                    <h3 className="font-semibold">Region</h3>
+                    <Clock className="w-5 h-5 text-slate-900" />
+                    <h3 className="font-semibold">Best Time</h3>
                   </div>
-                  <p className="text-gray-700">{activity.region}</p>
+                  <p className="text-gray-700">{activity.bestTimeOfDay}</p>
                 </Card>
               )}
             </div>
 
-            {/* Important Information */}
-            {activity.bookingRequired && (
-              <Card className="p-4 bg-amber-50 border-amber-200">
-                <div className="flex gap-3">
-                  <Calendar className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-semibold text-amber-900 mb-1">Advance Booking Required</h3>
-                    <p className="text-sm text-amber-800">
-                      This activity requires advance booking. We recommend reserving your spot at least 3-7 days before your desired date.
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            )}
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-4">

@@ -396,7 +396,7 @@ export function SocialPage({ currentUser, onViewUserProfile, onViewTrip }: Socia
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     onViewTrip?.(post.trip.id);
                   }}

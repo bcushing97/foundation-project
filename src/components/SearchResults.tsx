@@ -1395,7 +1395,7 @@ export function SearchResults({ searchType, searchQuery, experienceFilters, expe
                 <TripResultCard
                   key={trip.id}
                   trip={trip}
-                  onClick={() => onViewTripDetails(trip.id)}
+                  onClick={() => onViewTripDetails?.(trip.id)}
                   visitedByFriends={trip.visitedByFriends}
                 />
               ))}
