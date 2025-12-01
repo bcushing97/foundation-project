@@ -571,6 +571,10 @@ export default function App() {
           onViewDestination={handleViewDestinationFromTrip}
           onViewActivity={handleViewActivityFromTrip}
           onViewAccommodation={handleViewAccommodationFromTrip}
+          onToggleSaveDestination={handleToggleSaveDestination}
+          onToggleSaveActivity={handleToggleSaveActivity}
+          savedDestinationIds={user?.savedDestinationIds || []}
+          savedActivityIds={user?.savedActivityIds || []}
         />
 
         {/* Destination Details from Trip */}
@@ -691,6 +695,10 @@ export default function App() {
             onViewDestination={handleViewDestinationFromTrip}
             onViewActivity={handleViewActivityFromTrip}
             onViewAccommodation={handleViewAccommodationFromTrip}
+            onToggleSaveDestination={handleToggleSaveDestination}
+            onToggleSaveActivity={handleToggleSaveActivity}
+            savedDestinationIds={user?.savedDestinationIds || []}
+            savedActivityIds={user?.savedActivityIds || []}
           />
 
           {/* Destination Details from Trip */}

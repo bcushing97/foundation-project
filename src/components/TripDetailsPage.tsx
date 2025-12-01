@@ -27,6 +27,10 @@ interface TripDetailsPageProps {
   onViewDestination?: (destinationId: string) => void;
   onViewActivity?: (activityId: string) => void;
   onViewAccommodation?: (destinationName: string, accommodationName: string) => void;
+  onToggleSaveDestination?: (destinationId: string) => void;
+  onToggleSaveActivity?: (activityId: string) => void;
+  savedDestinationIds?: string[];
+  savedActivityIds?: string[];
 }
 
 export function TripDetailsPage({ 
@@ -39,15 +43,16 @@ export function TripDetailsPage({
   onViewCreatorProfile,
   onViewDestination,
   onViewActivity,
-  onViewAccommodation
+  onViewAccommodation,
+  onToggleSaveDestination,
+  onToggleSaveActivity,
+  savedDestinationIds = [],
+  savedActivityIds = []
 }: TripDetailsPageProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [savedDestinations, setSavedDestinations] = useState<Set<number>>(new Set());
-  const [savedAccommodations, setSavedAccommodations] = useState<Set<string>>(new Set());
-  const [savedActivities, setSavedActivities] = useState<Set<string>>(new Set());
 
   // Look up the creator from the users database
   const creator = usersDatabase[trip.creatorId];
@@ -76,40 +81,16 @@ export function TripDetailsPage({
     }
   };
 
-  const toggleSaveDestination = (index: number) => {
-    setSavedDestinations(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
+  const handleToggleSaveDestination = (destinationId: string) => {
+    if (onToggleSaveDestination) {
+      onToggleSaveDestination(destinationId);
+    }
   };
 
-  const toggleSaveAccommodation = (key: string) => {
-    setSavedAccommodations(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) {
-        newSet.delete(key);
-      } else {
-        newSet.add(key);
-      }
-      return newSet;
-    });
-  };
-
-  const toggleSaveActivity = (activityId: string) => {
-    setSavedActivities(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(activityId)) {
-        newSet.delete(activityId);
-      } else {
-        newSet.add(activityId);
-      }
-      return newSet;
-    });
+  const handleToggleSaveActivity = (activityId: string) => {
+    if (onToggleSaveActivity) {
+      onToggleSaveActivity(activityId);
+    }
   };
 
   const nextImage = () => {
@@ -345,14 +326,16 @@ export function TripDetailsPage({
                   <Button
                     variant="ghost"
                     size="sm"
-                onClick={(e: React.MouseEvent) => {
+                    onClick={(e: React.MouseEvent) => {
                       e.stopPropagation();
-                      toggleSaveDestination(index);
+                      if (destination.id) {
+                        handleToggleSaveDestination(destination.id);
+                      }
                     }}
                     className="gap-2"
                   >
                     <Bookmark 
-                      className={`w-4 h-4 ${savedDestinations.has(index) ? 'fill-slate-900' : ''}`} 
+                      className={`w-4 h-4 ${destination.id && savedDestinationIds.includes(destination.id) ? 'fill-slate-900' : ''}`} 
                     />
                   </Button>
                 </div>
@@ -401,13 +384,12 @@ export function TripDetailsPage({
                                 size="sm"
                                 onClick={(e: React.MouseEvent) => {
                                   e.stopPropagation();
-                                  toggleSaveAccommodation(accommodation.name);
+                                  // Accommodations don't have IDs in the current data structure
+                                  // This would need backend support to properly save
                                 }}
                                 className="gap-2"
                               >
-                                <Bookmark 
-                                  className={`w-4 h-4 ${savedAccommodations.has(accommodation.name) ? 'fill-slate-900' : ''}`} 
-                                />
+                                <Bookmark className="w-4 h-4" />
                               </Button>
                             </div>
                           </div>
@@ -499,12 +481,12 @@ export function TripDetailsPage({
                               size="sm"
                               onClick={(e: React.MouseEvent) => {
                                 e.stopPropagation();
-                                toggleSaveActivity(activity.id);
+                                handleToggleSaveActivity(activity.id);
                               }}
                               className="gap-2"
                             >
                               <Bookmark 
-                                className={`w-4 h-4 ${savedActivities.has(activity.id) ? 'fill-slate-900' : ''}`} 
+                                className={`w-4 h-4 ${savedActivityIds.includes(activity.id) ? 'fill-slate-900' : ''}`} 
                               />
                             </Button>
                           </div>
