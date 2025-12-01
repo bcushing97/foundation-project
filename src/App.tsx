@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, MapPin, Sparkles, Calendar, Users, DollarSign, User, Users as UsersIcon, Flag, X } from 'lucide-react';
+import { Search, MapPin, Sparkles, Calendar, Users, DollarSign, User as UserIcon, Users as UsersIcon, Flag, X } from 'lucide-react';
 import { BackgroundSlideshow } from './components/BackgroundSlideshow';
 import { SearchResults } from './components/SearchResults';
 import { AppHeader } from './components/AppHeader';
@@ -10,8 +10,8 @@ import { TripsPage } from './components/TripsPage';
 import { TripDetailsPage } from './components/TripDetailsPage';
 import { TripEditorPage } from './components/TripEditorPage';
 import { TripBuilderPage } from './components/TripBuilderPage';
-import { CreateTripDialog, type DraftTrip } from './components/CreateTripDialog';
-import { AddToExistingTripDialog } from './components/AddToExistingTripDialog';
+import { CreateTripDialog } from './components/CreateTripDialog';
+import { AddToExistingTripDialog, type DraftTrip } from './components/AddToExistingTripDialog';
 import { LoginDialog } from './components/LoginDialog';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { MobileHomePage } from './components/MobileHomePage';
@@ -33,6 +33,7 @@ import { Badge } from './components/ui/badge';
 import { Separator } from './components/ui/separator';
 import { worldDestinations } from './data/destinations';
 import { savedTrips, type SavedTrip } from './data/savedTrips';
+import type { User } from './data/users';
 
 function PlaceSettingIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -127,7 +128,7 @@ export default function App() {
   const [selectedDestinationForTrip, setSelectedDestinationForTrip] = useState<{ id: string; name: string; country: string } | null>(null);
   const [createTripOpen, setCreateTripOpen] = useState(false);
   const [addToTripOpen, setAddToTripOpen] = useState(false);
-  const [profileInitialSection, setProfileInitialSection] = useState<'about' | 'trips' | 'friends' | 'settings'>('about');
+  const [profileInitialSection, setProfileInitialSection] = useState<'about' | 'trips' | 'friends' | 'settings' | 'help'>('about');
   const [mobileTab, setMobileTab] = useState<'home' | 'social' | 'trips' | 'saved' | 'profile'>('home');
   const [mobileAuthView, setMobileAuthView] = useState<'login' | 'signup' | null>(null);
   const [editingTripId, setEditingTripId] = useState<string | null>(null);
@@ -755,7 +756,7 @@ export default function App() {
       <>
         <TripsPage
           onViewTripDetails={(id) => setViewingTripId(id)}
-          user={user}
+          user={user || undefined}
           onViewProfile={handleViewProfile}
           onMockLogin={mockLogin}
           onGoHome={handleGoHome}
@@ -994,7 +995,7 @@ export default function App() {
             setSearchQuery(location);
             setLocationSearch(location);
           }}
-          user={user}
+          user={user || undefined}
           following={user ? ['Bryce', 'Cayman', 'Sarah', 'Michael', 'Emma', 'James', 'Olivia'] : undefined}
           onLogout={handleSignOut}
           onViewProfile={handleViewProfile}

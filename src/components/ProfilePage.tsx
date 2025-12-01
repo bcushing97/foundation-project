@@ -28,7 +28,7 @@ interface ProfilePageProps {
   onEditTrip?: (tripId: string) => void;
 }
 
-type ProfileSection = 'about' | 'friends' | 'settings' | 'help';
+type ProfileSection = 'about' | 'friends' | 'settings' | 'help' | 'trips';
 
 interface Activity {
   id: string;

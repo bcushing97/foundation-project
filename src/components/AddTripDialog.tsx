@@ -9,7 +9,7 @@ import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Star, Plus, X, MapPin, Calendar as CalendarIcon, Upload, Trash2, UserPlus } from 'lucide-react';
 import { worldDestinations } from '../data/destinations';
-import { format } from 'date-fns@4.1.0';
+import { format } from 'date-fns';
 
 interface Activity {
   id: string;

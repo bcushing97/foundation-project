@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowLeft, MapPin, X, TrendingUp } from 'lucide-react';
+import { ArrowLeft, MapPin, X, TrendingUp, ArrowRight } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
