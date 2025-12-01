@@ -12,7 +12,7 @@ import {
   DialogTitle,
 } from './ui/dialog';
 import { format } from 'date-fns';
-import type { DraftTrip } from './AddToTripDialog';
+import type { DraftTrip } from './AddToExistingTripDialog';
 import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 
 interface DestinationDetailsProps {
@@ -1678,7 +1678,7 @@ export function DestinationDetails({ destination, onClose, following, selectedFi
                           <Button 
                             variant="outline" 
                             className="flex-1"
-                            onClick={(e) => {
+                            onClick={(e: React.MouseEvent) => {
                               if (!isLoggedIn) {
                                 e.preventDefault();
                                 setSelectedActivity(null);

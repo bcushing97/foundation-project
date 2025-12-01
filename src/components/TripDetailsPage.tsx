@@ -345,7 +345,7 @@ export function TripDetailsPage({
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                       e.stopPropagation();
                       toggleSaveDestination(index);
                     }}
@@ -399,7 +399,7 @@ export function TripDetailsPage({
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={(e) => {
+                                onClick={(e: React.MouseEvent) => {
                                   e.stopPropagation();
                                   toggleSaveAccommodation(accommodation.name);
                                 }}
@@ -471,7 +471,7 @@ export function TripDetailsPage({
                                 {activity.estimatedCost && (
                                   <div className="text-right flex-shrink-0">
                                     <p className="font-semibold text-slate-900">${activity.estimatedCost}</p>
-                                    <p className="text-xs text-gray-500">{renderPriceLevel(activity.priceLevel)}</p>
+                                    <p className="text-xs text-gray-500">{renderPriceLevel(activity.priceLevel || 1)}</p>
                                   </div>
                                 )}
                               </div>
@@ -483,49 +483,21 @@ export function TripDetailsPage({
                                   {activity.duration}
                                 </Badge>
                                 <Badge variant="outline">{activity.category}</Badge>
-                                {activity.difficultyLevel && (
+                                {activity.difficulty && (
                                   <Badge variant="outline" className="gap-1">
                                     <TrendingUp className="w-3 h-3" />
-                                    {activity.difficultyLevel}
+                                    {activity.difficulty}
                                   </Badge>
-                                )}
-                                {activity.bookingRequired && (
-                                  <Badge variant="secondary">Booking Required</Badge>
                                 )}
                               </div>
                               
-                              {/* Included Items */}
-                              {activity.included && activity.included.length > 0 && (
-                                <div>
-                                  <p className="text-xs font-medium text-gray-700 mb-1">Included:</p>
-                                  <div className="flex flex-wrap gap-1">
-                                    {activity.included.map((item, idx) => (
-                                      <span key={idx} className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                                        ✓ {item}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Best For */}
-                              {activity.bestFor && activity.bestFor.length > 0 && (
-                                <div className="flex flex-wrap gap-1">
-                                  <span className="text-xs text-gray-600">Best for:</span>
-                                  {activity.bestFor.map((audience, idx) => (
-                                    <span key={idx} className="text-xs text-emerald-700 font-medium">
-                                      {audience}{idx < activity.bestFor!.length - 1 ? ',' : ''}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
                             </div>
                           </div>
                           <div className="flex items-center gap-2 mt-3">
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={(e) => {
+                              onClick={(e: React.MouseEvent) => {
                                 e.stopPropagation();
                                 toggleSaveActivity(activity.id);
                               }}

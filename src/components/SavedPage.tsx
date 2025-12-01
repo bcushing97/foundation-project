@@ -305,7 +305,7 @@ export function SavedPage({ userId = 'user-john-doe', onViewDestination, onViewA
       </div>
 
       {/* Remove Confirmation Dialog */}
-      <AlertDialog open={!!itemToRemove} onOpenChange={(open) => !open && setItemToRemove(null)}>
+      <AlertDialog open={!!itemToRemove} onOpenChange={(open: boolean) => !open && setItemToRemove(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Remove from favorites?</AlertDialogTitle>

@@ -139,13 +139,13 @@ export function MyTripsPage({
           <div className="flex items-center justify-between pt-3 border-t">
             <div className="text-sm">
               <span className="text-gray-600">Budget: </span>
-              <span className="font-medium">${trip.totalBudget.toLocaleString()}</span>
+              <span className="font-medium">${trip.totalBudget?.toLocaleString() || '0'}</span>
             </div>
             <Button
               variant="ghost"
               size="sm"
               className="gap-1"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent) => {
                 e.stopPropagation();
                 onEditTrip?.(trip.id);
               }}
@@ -193,7 +193,7 @@ export function MyTripsPage({
         </Button>
 
         {/* Tabs */}
-        <Tabs value={selectedTab} onValueChange={(v) => setSelectedTab(v as 'upcoming' | 'past')} className="mb-8">
+        <Tabs value={selectedTab} onValueChange={(v: string) => setSelectedTab(v as 'upcoming' | 'past')} className="mb-8">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="upcoming" className="gap-2">
               <Plane className="w-4 h-4" />

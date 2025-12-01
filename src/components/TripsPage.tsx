@@ -334,7 +334,7 @@ export function TripsPage({
             size="icon"
             variant="ghost"
             className="absolute bottom-4 right-4 bg-white/90 hover:bg-white backdrop-blur-sm"
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent) => {
               e.stopPropagation();
               toggleSaveTrip(trip.id);
             }}
@@ -434,7 +434,7 @@ export function TripsPage({
         </div>
 
         {/* Tabs */}
-        <Tabs value={selectedTab} onValueChange={(v) => setSelectedTab(v as 'following' | 'popular')} className="mb-8">
+        <Tabs value={selectedTab} onValueChange={(v: string) => setSelectedTab(v as 'following' | 'popular')} className="mb-8">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger value="following" className="gap-2">
               <Users className="w-4 h-4" />

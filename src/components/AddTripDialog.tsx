@@ -242,7 +242,7 @@ export function AddTripDialog({ open, onOpenChange, onSave, currentUser, followi
                     <Label>Arrival Date *</Label>
                     <Popover 
                       open={stop.showArrivalCalendar}
-                      onOpenChange={(open) => updateStop(stop.id, { showArrivalCalendar: open })}
+                      onOpenChange={(open: boolean) => updateStop(stop.id, { showArrivalCalendar: open })}
                     >
                       <PopoverTrigger asChild>
                         <Button
@@ -258,7 +258,7 @@ export function AddTripDialog({ open, onOpenChange, onSave, currentUser, followi
                         <Calendar
                           mode="single"
                           selected={stop.arrivalDate}
-                          onSelect={(date) => {
+                          onSelect={(date: Date | undefined) => {
                             updateStop(stop.id, { 
                               arrivalDate: date,
                               departureDate: date, // Auto-set departure to same date
@@ -276,7 +276,7 @@ export function AddTripDialog({ open, onOpenChange, onSave, currentUser, followi
                     <Label>Departure Date *</Label>
                     <Popover
                       open={stop.showDepartureCalendar}
-                      onOpenChange={(open) => updateStop(stop.id, { showDepartureCalendar: open })}
+                      onOpenChange={(open: boolean) => updateStop(stop.id, { showDepartureCalendar: open })}
                     >
                       <PopoverTrigger asChild>
                         <Button
@@ -292,7 +292,7 @@ export function AddTripDialog({ open, onOpenChange, onSave, currentUser, followi
                         <Calendar
                           mode="single"
                           selected={stop.departureDate}
-                          onSelect={(date) => {
+                          onSelect={(date: Date | undefined) => {
                             updateStop(stop.id, { 
                               departureDate: date,
                               showDepartureCalendar: false
@@ -300,7 +300,7 @@ export function AddTripDialog({ open, onOpenChange, onSave, currentUser, followi
                           }}
                           defaultMonth={stop.arrivalDate || undefined}
                           initialFocus
-                          disabled={(date) => stop.arrivalDate ? date < stop.arrivalDate : false}
+                          disabled={(date: Date) => stop.arrivalDate ? date < stop.arrivalDate : false}
                         />
                       </PopoverContent>
                     </Popover>
